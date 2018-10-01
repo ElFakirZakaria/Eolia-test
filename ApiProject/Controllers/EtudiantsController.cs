@@ -46,41 +46,6 @@ namespace ApiProject.Controllers
             return Ok(etudiant);
         }
 
-        // PUT: api/Etudiants/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutEtudiant([FromRoute] int id, [FromBody] Etudiant etudiant)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != etudiant.EtudiantId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(etudiant).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EtudiantExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/Etudiants
         [HttpPost]
         public async Task<IActionResult> PostEtudiant([FromBody] Etudiant etudiant)
@@ -94,27 +59,6 @@ namespace ApiProject.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetEtudiant", new { id = etudiant.EtudiantId }, etudiant);
-        }
-
-        // DELETE: api/Etudiants/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEtudiant([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var etudiant = await _context.Etudiant.FindAsync(id);
-            if (etudiant == null)
-            {
-                return NotFound();
-            }
-
-            _context.Etudiant.Remove(etudiant);
-            await _context.SaveChangesAsync();
-
-            return Ok(etudiant);
         }
 
         private bool EtudiantExists(int id)
