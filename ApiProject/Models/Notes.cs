@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ApiProject.Models
 {
@@ -9,7 +10,7 @@ namespace ApiProject.Models
         public string Matiere { get; set; }
         public double Note { get; set; }
         public int EtudiantId { get; set; }
-
+        [ForeignKey("EtudiantId")]
         public Etudiant Etudiant { get; set; }
     }
 }
